@@ -1,0 +1,35 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Игра
+{
+    // 4 - «Бомба»,
+    public class Bomb : Cell
+    {
+        public Bomb()
+        {
+            ImgSource = Properties.Resources.bomb;
+        }
+
+        public override bool Activation(int posX, int posY, Board myBoard)
+        {
+            int lb = posX - 1, rb = posX + 1, tb = posY - 1, bb = posY + 1; // запоминаем координаты границ вокруг ячейки
+
+            if (posX == 0) lb = posX; // корректируем границ, чтобы избежать выхода за границы поля
+            if (posX == myBoard.SizeM - 1) rb = posX;
+            if (posY == 0) tb = posY;
+            if (posY == myBoard.SizeN - 1) bb = posY;
+
+            for (int i = tb; i <= bb; i++) // проходим по всем ячейкам вокруг ячейки
+                for (int j = lb; j <= rb; j++)
+                {
+                    myBoard.Score++; // увелииваем счетчик очков на 1
+                    myBoard.Matrix[i, j] = myBoard.RandElement(); // заменяем на новый
+                }
+            return true;
+        }
+    }
+}

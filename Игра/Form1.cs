@@ -15,7 +15,7 @@ namespace Игра
         public Game newGame; // Объект - Игра
 
         public bool flag = false; // Флаг состояния кликов (False - не было первого клика, True - был первый клик)
-        
+        int posX = 0, posY = 0;
         int FposX = 0, FposY = 0; // Координаты клика
 
         /// <summary>
@@ -65,7 +65,7 @@ namespace Игра
         {
             if(!flag) // проверяем состояние флага
             {
-                if(flag = newGame.newBoard.FirstClick(e)) // проверяем характер первого клика - True - ожидание 2 клика, False - была активация
+                if(flag = newGame.newBoard.FirstClick(posX,posY,e)) // проверяем характер первого клика - True - ожидание 2 клика, False - была активация
                 {
                     FposX = (int)(e.X / 36); // сохраняем коодинаты первого клика
                     FposY = (int)(e.Y / 36); 
