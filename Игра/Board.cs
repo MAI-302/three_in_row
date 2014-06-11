@@ -12,22 +12,21 @@ namespace Игра
     /// </summary>
     public class Board
     {
-        public int SizeM; //Кол-во столбцов игрового поля
-        public int sizeM
+        private readonly int M; //Кол-во столбцов игрового поля
+        private readonly int N; //Кол-во строк игрового поля
+        public int SizeM
         {
             get
             {
-                return SizeM;
+                return M;
             }
-
         }
-
-        public int SizeN; //Кол-во строк игрового поля
-        public int sizeN
+        
+        public int SizeN
         {
             get
             {
-                return SizeN;
+                return N;
             }
         }
 
@@ -35,11 +34,17 @@ namespace Игра
         public int Score; // Количество набранных очков
         Random rnd = new Random(); // Инициализируем генератор случайных чисел
         int rand = 0; // Счетчик итераций генератора случайных чисел
-        Type YellowType = Type.GetType("Игра.Yellow");
-        Type RedType = Type.GetType("Игра.Red");
-        Type BlueType = Type.GetType("Игра.Blue");
-        Type GreenType = Type.GetType("Игра.Green");
-        Type RainType = Type.GetType("Игра.Rainbow");
+
+        /// <summary>
+        ///  Конструктор класса
+        /// </summary>
+        /// <param name="_M">Кол-во столбцов</param>
+        /// <param name="_N">Кол-во строк</param>
+        public Board(int _M, int _N)
+        {
+            M = _M;
+            N = _N;
+        }
 
         /// <summary>
         ///  Генерирует элементы игрового поля
@@ -79,12 +84,12 @@ namespace Игра
                 for (int j = 1; j < SizeM - 1; j++) // от первого до предпоследнего, т.к. у них нет соседа слева (справа)
                 {
                     // проверяет соседей справа и слева от текущ. ячейки на одинаковость (или на радужный квадрат)
-                    if (((Matrix[i, j - 1].GetType() == Matrix[i, j].GetType()) || (Matrix[i, j - 1].GetType() == RainType))
-                        && ((Matrix[i, j + 1].GetType() == Matrix[i, j].GetType()) || (Matrix[i, j + 1].GetType() == RainType)))
+                    if (((Matrix[i, j - 1].GetType() == Matrix[i, j].GetType()) || (Matrix[i, j - 1] is Rainbow))
+                        && ((Matrix[i, j + 1].GetType() == Matrix[i, j].GetType()) || (Matrix[i, j + 1] is Rainbow)))
                     {
                         k = 1;
                         // проверяем ещё соседей справа
-                        while ((j + 1 + k < SizeM) && ((Matrix[i, j + 1 + k].GetType() == Matrix[i, j].GetType()) || (Matrix[i, j + 1 + k].GetType() == RainType)))
+                        while ((j + 1 + k < SizeM) && ((Matrix[i, j + 1 + k].GetType() == Matrix[i, j].GetType()) || (Matrix[i, j + 1 + k] is Rainbow)))
                             k++;
 
                         Matrix[i, j - 1] = RandElement(); // заменяем найденные одинаковые ячейки (соседей)
@@ -109,12 +114,12 @@ namespace Игра
                     for (int j = 0; j < SizeM; j++)
                     {
                         // проверяет соседей сверху и снизу от текущ. ячейки на одинаковость (или на радужный квадрат)
-                        if (((Matrix[i - 1, j].GetType() == Matrix[i, j].GetType()) || (Matrix[i - 1, j].GetType() == RainType))
-                            && ((Matrix[i + 1, j].GetType() == Matrix[i, j].GetType()) || (Matrix[i + 1, j].GetType() == RainType)))
+                        if (((Matrix[i - 1, j].GetType() == Matrix[i, j].GetType()) || (Matrix[i - 1, j] is Rainbow))
+                            && ((Matrix[i + 1, j].GetType() == Matrix[i, j].GetType()) || (Matrix[i + 1, j] is Rainbow)))
                         {
                             // проверяем ещё соседей снизу
                             k = 1;
-                            while ((i + 1 + k < SizeN) && ((Matrix[i + 1 + k, j].GetType() == Matrix[i, j].GetType()) || (Matrix[i + 1 + k, j].GetType() == RainType)))
+                            while ((i + 1 + k < SizeN) && ((Matrix[i + 1 + k, j].GetType() == Matrix[i, j].GetType()) || (Matrix[i + 1 + k, j] is Rainbow)))
                                 k++;
 
                             Matrix[i - 1, j] = RandElement();  // заменяем найденные одинаковые ячейки (соседей)
@@ -139,16 +144,12 @@ namespace Игра
         /// </summary>
         /// <param name="e">Событие - клик мыши</param>
         /// <returns>True - не было активации, False - была активация</returns> 
-        public bool FirstClick(int posX, int posY, MouseEventArgs e)
+        public bool FirstClick(int posX, int posY)
         {
             // posX, posY;
             int StScore; // запоминает текущее кол-во очков
-
-            if ((e.X < 37 * this.SizeM) && (e.Y < 37 * this.SizeN)) // защита от кликов вне игрового поля
+            if ((posX < SizeM * 36) && (posY < SizeN * 36))
             {
-                posX = (int)(e.X / 36); // находит номер ячейки матрицы
-                posY = (int)(e.Y / 36);
-
                 if (!Matrix[posY, posX].Activation(posX, posY, this)) // проверка на возможность активации при однократном клике
                 {
                     Matrix[posY, posX].SelectElement(); // выделяем данную ячейку (затемняем)
@@ -172,23 +173,16 @@ namespace Игра
         /// <param name="FposX">Номер столбца ячейки из первого клика</param>
         /// <param name="FposY">Номер строки ячейки из первого клика</param>
         /// <param name="e">Событие - клик мыши</param>
-        public void SecondClick(int FposX, int FposY, MouseEventArgs e)
+        public void SecondClick(int FposX, int FposY, int posX, int posY)
         {
-            int posX, posY;
-            if ((e.X < 37 * this.SizeM) && (e.Y < 37 * this.SizeN)) // защита от клика вне границ игрового поля
-            {
-                posX = (int)(e.X / 36); // получает номер столбца и строки ячейки, по которой кликнули
-                posY = (int)(e.Y / 36);
-
                 // проверяет корректность второго клика
-                if (((Matrix[posY, posX].GetType() == YellowType) || (Matrix[posY, posX].GetType() == RedType) || (Matrix[posY, posX].GetType() == BlueType) || (Matrix[posY, posX].GetType() == GreenType))
+                if (((Matrix[posY, posX] is Yellow) || (Matrix[posY, posX] is Red) || (Matrix[posY, posX] is Blue) || (Matrix[posY, posX] is Green))
                     &&
                     (((Math.Abs(posX - FposX) == 1) && (Math.Abs(posY - FposY) == 0)) || ((Math.Abs(posY - FposY) == 1) && (Math.Abs(posX - FposX) == 0))))
                 {
                     Chain(FposX, FposY, posX, posY); // проверяем возможность образования цепочки в реультате перемены мест 
                 }
                 Matrix[FposY, FposX].CreateElement(); // снимаем выделение с ячейки из первого клика
-            }
         }
 
         /// <summary>
@@ -262,7 +256,7 @@ namespace Игра
                 case 6: return new Zip();
             }
 
-            return new Cell(); // возвращаем сформированный новый объект
+            return new Cell(); // заглушка
         }
     }
 }

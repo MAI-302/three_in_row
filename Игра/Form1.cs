@@ -14,6 +14,7 @@ namespace Игра
     {
         public Game newGame; // Объект - Игра
 
+        int N = 10, M = 8;
         public bool flag = false; // Флаг состояния кликов (False - не было первого клика, True - был первый клик)
         int posX = 0, posY = 0;
         int FposX = 0, FposY = 0; // Координаты клика
@@ -33,7 +34,7 @@ namespace Игра
         /// <param name="sender">Объект обращения</param>
         private void Form1_Load(object sender, EventArgs e)
         {
-            newGame = new Game(); // создаем новую игру
+            newGame = new Game(M, N); // создаем новую игру
             newGame.Initialization(); // запускаем игровой процесс
 
             do // доводим игровое поле до состояния готовности путем обнуления очков на игровом поле
@@ -42,7 +43,7 @@ namespace Игра
                 newGame.newBoard.Scoring();
             } while (newGame.newBoard.Score != 0);
 
-            this.ClientSize = new System.Drawing.Size(37 * newGame.newBoard.SizeM, 37 * newGame.newBoard.SizeN + 21); // корректируем размеры формы
+            this.ClientSize = new System.Drawing.Size(newGame.Width, newGame.Height + 21); // корректируем размеры формы
         }
 
         /// <summary>
@@ -65,25 +66,37 @@ namespace Игра
         {
             if(!flag) // проверяем состояние флага
             {
-                if(flag = newGame.newBoard.FirstClick(posX,posY,e)) // проверяем характер первого клика - True - ожидание 2 клика, False - была активация
+                if ((e.X < newGame.Width) && (e.Y < newGame.Height)) // защита от кликов вне игрового поля
                 {
-                    FposX = (int)(e.X / 36); // сохраняем коодинаты первого клика
-                    FposY = (int)(e.Y / 36); 
-                    this.Score2.Text = "Ждем клик" + Convert.ToString(FposX) + Convert.ToString(FposY); // выводим в поле Score2 текст
-                    this.Refresh(); // обновляем форму
-                }
-                else
-                {
-                    this.Score2.Text = "Активация!"; // выводим в поле Score2 текст
-                    this.Refresh(); // обновляем форму
+                    posX = (int)(e.X / 36); // находит номер ячейки матрицы
+                    posY = (int)(e.Y / 36);
+
+                    if (flag = newGame.newBoard.FirstClick(posX, posY)) // проверяем характер первого клика - True - ожидание 2 клика, False - была активация
+                    {
+                        FposX = posX; // сохраняем коодинаты первого клика
+                        FposY = posY;
+                        this.Score2.Text = "Ждем клик" + Convert.ToString(FposX) + Convert.ToString(FposY); // выводим в поле Score2 текст
+                        this.Refresh(); // обновляем форму
+                    }
+                    else
+                    {
+                        this.Score2.Text = "Активация!"; // выводим в поле Score2 текст
+                        this.Refresh(); // обновляем форму
+                    }
                 }
             }
             else // если находимся в состоянии ожидании второго клика (flag = True)
             {
                 this.Score2.Text = "Второй клик"; // выводим в поле Score2 текст
-                newGame.newBoard.SecondClick(FposX, FposY, e);
-                
-                this.Refresh(); // обновляем форму
+                if ((e.X < newGame.Width) && (e.Y < newGame.Height)) // защита от клика вне границ игрового поля
+                {
+                    posX = (int)(e.X / 36); // получает номер столбца и строки ячейки, по которой кликнули
+                    posY = (int)(e.Y / 36);
+
+                    newGame.newBoard.SecondClick(FposX, FposY, posX, posY);
+
+                    this.Refresh(); // обновляем форму
+                }
                 flag = false; // снимаем флаг (False - не было первого клика)
             }
         }

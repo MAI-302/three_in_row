@@ -7,3 +7,12 @@ C:\Users\женя\Desktop\игра 9 июня\Игра\obj\Debug\Игра.csproj
 C:\Users\женя\Desktop\игра 9 июня\Игра\bin\Debug\Игра.exe
 C:\Users\женя\Desktop\игра 9 июня\Игра\bin\Debug\Игра.pdb
 C:\Users\женя\Desktop\игра 9 июня\Игра\obj\Debug\Игра.csprojResolveAssemblyReference.cache
+C:\Users\acer\Desktop\игра 9 июня\Игра\bin\Debug\Игра.exe.config
+C:\Users\acer\Desktop\игра 9 июня\Игра\obj\Debug\Игра.exe
+C:\Users\acer\Desktop\игра 9 июня\Игра\obj\Debug\Игра.pdb
+C:\Users\acer\Desktop\игра 9 июня\Игра\bin\Debug\Игра.exe
+C:\Users\acer\Desktop\игра 9 июня\Игра\bin\Debug\Игра.pdb
+C:\Users\acer\Desktop\игра 9 июня\Игра\obj\Debug\Игра.csprojResolveAssemblyReference.cache
+C:\Users\acer\Desktop\игра 9 июня\Игра\obj\Debug\Игра.Form1.resources
+C:\Users\acer\Desktop\игра 9 июня\Игра\obj\Debug\Игра.Properties.Resources.resources
+C:\Users\acer\Desktop\игра 9 июня\Игра\obj\Debug\Игра.csproj.GenerateResource.Cache
