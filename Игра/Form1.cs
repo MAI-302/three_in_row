@@ -14,7 +14,7 @@ namespace Игра
     {
         public Game newGame; // Объект - Игра
 
-        int N = 10, M = 8;
+        int Rows = 10, Columns = 8;
         public bool flag = false; // Флаг состояния кликов (False - не было первого клика, True - был первый клик)
         int posX = 0, posY = 0;
         int FposX = 0, FposY = 0; // Координаты клика
@@ -34,8 +34,11 @@ namespace Игра
         /// <param name="sender">Объект обращения</param>
         private void Form1_Load(object sender, EventArgs e)
         {
-            newGame = new Game(M, N); // создаем новую игру
+            newGame = new Game(Columns, Rows); // создаем новую игру
+           
             newGame.Initialization(); // запускаем игровой процесс
+        
+
 
             do // доводим игровое поле до состояния готовности путем обнуления очков на игровом поле
             {
@@ -43,7 +46,7 @@ namespace Игра
                 newGame.newBoard.Scoring();
             } while (newGame.newBoard.Score != 0);
 
-            this.ClientSize = new System.Drawing.Size(newGame.Width, newGame.Height + 21); // корректируем размеры формы
+            this.ClientSize = new System.Drawing.Size(newGame.Width, newGame.Height); // корректируем размеры формы
         }
 
         /// <summary>
@@ -69,7 +72,7 @@ namespace Игра
                 if ((e.X < newGame.Width) && (e.Y < newGame.Height)) // защита от кликов вне игрового поля
                 {
                     posX = (int)(e.X / 36); // находит номер ячейки матрицы
-                    posY = (int)(e.Y / 36);
+                    posY = (int)(e.Y /36 );
 
                     if (flag = newGame.newBoard.FirstClick(posX, posY)) // проверяем характер первого клика - True - ожидание 2 клика, False - была активация
                     {

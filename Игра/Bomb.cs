@@ -12,16 +12,27 @@ namespace Игра
         public Bomb()
         {
             ImgSource = Properties.Resources.bomb;
-        }
 
+        }
+        /// <summary>
+        /// Создает изображение элемента игрового поля
+        /// </summary>
+        public override void CreateElement()
+        {}
+
+        /// <summary>
+        /// Выделяет изображение элемента игрового поля
+        /// </summary>
+        public  override void SelectElement()
+        {}
         public override bool Activation(int posX, int posY, Board myBoard)
         {
             int lb = posX - 1, rb = posX + 1, tb = posY - 1, bb = posY + 1; // запоминаем координаты границ вокруг ячейки
 
             if (posX == 0) lb = posX; // корректируем границ, чтобы избежать выхода за границы поля
-            if (posX == myBoard.SizeM - 1) rb = posX;
+            if (posX == myBoard.Size_Columns - 1) rb = posX;
             if (posY == 0) tb = posY;
-            if (posY == myBoard.SizeN - 1) bb = posY;
+            if (posY == myBoard.Size_Rows - 1) bb = posY;
 
             for (int i = tb; i <= bb; i++) // проходим по всем ячейкам вокруг ячейки
                 for (int j = lb; j <= rb; j++)

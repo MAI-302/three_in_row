@@ -13,6 +13,15 @@ namespace Игра
         {
             ImgSource = Properties.Resources.zip;
         }
+        /// <summary>
+        /// Создает изображение элемента игрового поля
+        /// </summary>
+        public  override void CreateElement() { }
+
+        /// <summary>
+        /// Выделяет изображение элемента игрового поля
+        /// </summary>
+        public  override void SelectElement() { }
 
         public override bool Activation(int posX, int posY, Board myBoard)
         {

@@ -13,6 +13,17 @@ namespace Игра
         {
             ImgSource = Properties.Resources.rainbow;
         }
+        /// <summary>
+        /// Создает изображение элемента игрового поля
+        /// </summary>
+        public override void CreateElement()
+        { }
+
+        /// <summary>
+        /// Выделяет изображение элемента игрового поля
+        /// </summary>
+        public override void SelectElement()
+        { }
     }
 
 }

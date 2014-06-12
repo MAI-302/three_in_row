@@ -35,11 +35,12 @@ using System.Threading.Tasks;
             /// <summary>
             ///  Конструктор класса
             /// </summary>
-            public Game(int M, int N)
+            public Game(int Columns, int Rows)
             {
-                newBoard = new Board(M, N);
-                width = newBoard.SizeM * 37;
-                height = newBoard.SizeN * 37;
+                newBoard = new Board(Columns, Rows);
+
+                width = 296;
+                height = 392;
             }
 
             /// <summary>
