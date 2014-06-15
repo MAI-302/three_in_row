@@ -17,12 +17,12 @@ namespace Игра
             /// <summary>
             /// Создает изображение элемента игрового поля
             /// </summary>
-            public abstract override void CreateElement();
+            public override void CreateElement() {}
 
             /// <summary>
             /// Выделяет изображение элемента игрового поля
             /// </summary>
-            public abstract override void SelectElement();
+            public override  void SelectElement() {}
             /// <summary>
             /// Активация
             /// </summary>

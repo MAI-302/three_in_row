@@ -12,9 +12,11 @@ namespace Игра
 {
     public partial class Form1 : Form
     {
-        public Game newGame; // Объект - Игра
-
-        int Rows = 10, Columns = 8;
+        //public Game newGame; // Объект - Игра
+        public Board newBoard;
+        int Rows = 10, Columns = 8, 
+            Cell_Width = Properties.Resources.blue.Width, 
+            Cell_Height = Properties.Resources.blue.Height;
         public bool flag = false; // Флаг состояния кликов (False - не было первого клика, True - был первый клик)
         int posX = 0, posY = 0;
         int FposX = 0, FposY = 0; // Координаты клика
@@ -34,19 +36,16 @@ namespace Игра
         /// <param name="sender">Объект обращения</param>
         private void Form1_Load(object sender, EventArgs e)
         {
-            newGame = new Game(Columns, Rows); // создаем новую игру
-           
-            newGame.Initialization(); // запускаем игровой процесс
-        
-
+            newBoard = new Board(Columns, Rows, Columns * Cell_Width, Rows * Cell_Height + this.statusStrip1.Height); // создаем новую игру
+            newBoard.Generate();
 
             do // доводим игровое поле до состояния готовности путем обнуления очков на игровом поле
             {
-                newGame.newBoard.Score = 0;
-                newGame.newBoard.Scoring();
-            } while (newGame.newBoard.Score != 0);
+                newBoard.Score = 0;
+                newBoard.Scoring();
+            } while (newBoard.Score != 0);
 
-            this.ClientSize = new System.Drawing.Size(newGame.Width, newGame.Height); // корректируем размеры формы
+            this.ClientSize = new System.Drawing.Size(newBoard.Width, newBoard.Height); // корректируем размеры формы
         }
 
         /// <summary>
@@ -56,8 +55,8 @@ namespace Игра
         /// <param name="sender">Объект обращения</param>
         private void Form1_Paint(object sender, PaintEventArgs e)
         {
-            this.StripScore.Text = "Score: _" + Convert.ToString(newGame.newBoard.Score); // Выводит кол-во очков в поле Score
-            newGame.newBoard.Draw(e); // Рисует игровое поле - обращение к методу Draw из класса Board
+            this.StripScore.Text = "Score: _" + Convert.ToString(newBoard.Score); // Выводит кол-во очков в поле Score
+            newBoard.Draw(e); // Рисует игровое поле - обращение к методу Draw из класса Board
         }
 
         /// <summary>
@@ -69,12 +68,12 @@ namespace Игра
         {
             if(!flag) // проверяем состояние флага
             {
-                if ((e.X < newGame.Width) && (e.Y < newGame.Height)) // защита от кликов вне игрового поля
+                if ((e.X < newBoard.Width) && (e.Y < newBoard.Height)) // защита от кликов вне игрового поля
                 {
-                    posX = (int)(e.X / 36); // находит номер ячейки матрицы
-                    posY = (int)(e.Y /36 );
+                    posX = (int)(e.X / Cell_Width); // находит номер ячейки матрицы
+                    posY = (int)(e.Y / Cell_Height);
 
-                    if (flag = newGame.newBoard.FirstClick(posX, posY)) // проверяем характер первого клика - True - ожидание 2 клика, False - была активация
+                    if (flag = newBoard.FirstClick(posX, posY)) // проверяем характер первого клика - True - ожидание 2 клика, False - была активация
                     {
                         FposX = posX; // сохраняем коодинаты первого клика
                         FposY = posY;
@@ -91,12 +90,12 @@ namespace Игра
             else // если находимся в состоянии ожидании второго клика (flag = True)
             {
                 this.Score2.Text = "Второй клик"; // выводим в поле Score2 текст
-                if ((e.X < newGame.Width) && (e.Y < newGame.Height)) // защита от клика вне границ игрового поля
+                if ((e.X < newBoard.Width) && (e.Y < newBoard.Height)) // защита от клика вне границ игрового поля
                 {
-                    posX = (int)(e.X / 36); // получает номер столбца и строки ячейки, по которой кликнули
-                    posY = (int)(e.Y / 36);
+                    posX = (int)(e.X / Cell_Width); // получает номер столбца и строки ячейки, по которой кликнули
+                    posY = (int)(e.Y / Cell_Height);
 
-                    newGame.newBoard.SecondClick(FposX, FposY, posX, posY);
+                    newBoard.SecondClick(FposX, FposY, posX, posY);
 
                     this.Refresh(); // обновляем форму
                 }

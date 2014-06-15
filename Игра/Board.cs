@@ -12,8 +12,10 @@ namespace Игра
     /// </summary>
     public class Board
     {
-        private readonly int Columns; //Кол-во столбцов игрового поля
-        private readonly int Rows; //Кол-во строк игрового поля
+        private readonly int Columns; // Кол-во столбцов игрового поля
+        private readonly int Rows; // Кол-во строк игрового поля
+        private readonly int Board_Height;
+        private readonly int Board_Width;
         public int Size_Columns
         {
             get
@@ -21,12 +23,25 @@ namespace Игра
                 return Columns;
             }
         }
-
         public int Size_Rows
         {
             get
             {
                 return Rows;
+            }
+        }
+        public int Width
+        {
+            get
+            {
+                return Board_Width;
+            }
+        }
+        public int Height
+        {
+            get
+            {
+                return Board_Height;
             }
         }
 
@@ -40,10 +55,12 @@ namespace Игра
         /// </summary>
         /// <param name="Columns"></param>
         /// <param name="Rows"></param>
-        public Board(int Columns, int Rows)
+        public Board(int Columns, int Rows, int Width, int Height)
         {
             this.Columns = Columns;
             this.Rows = Rows;
+            this.Board_Width = Width;
+            this.Board_Height = Height;
         }
 
         /// <summary>
@@ -67,7 +84,7 @@ namespace Игра
         {
             for (int i = 0; i < this.Size_Rows; i++) // рисуем на форме объекты матрицы 
                 for (int j = 0; j < this.Size_Columns; j++)
-                    e.Graphics.DrawImage(this.Matrix[i, j].ImgSource, j * 37, i * 37); // рисуем на форме рисунок элемента
+                    e.Graphics.DrawImage(this.Matrix[i, j].ImgSource, j * Properties.Resources.blue.Width, i * Properties.Resources.blue.Height); // рисуем на форме рисунок элемента
         }
 
         /// <summary>
@@ -148,7 +165,7 @@ namespace Игра
         {
             // posX, posY;
             int StScore; // запоминает текущее кол-во очков
-            if ((posX < Size_Columns * 36) && (posY < Size_Rows * 36))
+            if ((posX < Width) && (posY < Height))
             {
                 if (!Matrix[posY, posX].Activation(posX, posY, this)) // проверка на возможность активации при однократном клике
                 {
@@ -248,22 +265,13 @@ namespace Игра
             switch (op)
             {
                 case 0: return new Yellow();
-
                 case 1: return new Red();
-
                 case 2: return new Blue();
-
                 case 3: return new Green();
-
                 case 4: return new Bomb();
-
                 case 5: return new Rainbow();
-                default:
-                case 6: return new Zip();
-
+                default: return new Zip();
             }
-
-
         }
     }
 }
