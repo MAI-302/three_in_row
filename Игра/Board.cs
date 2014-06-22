@@ -101,12 +101,12 @@ namespace Игра
                 for (int j = 1; j < Size_Columns - 1; j++) // от первого до предпоследнего, т.к. у них нет соседа слева (справа)
                 {
                     // проверяет соседей справа и слева от текущ. ячейки на одинаковость (или на радужный квадрат)
-                    if (((Matrix[i, j - 1].GetType() == Matrix[i, j].GetType()) || (Matrix[i, j - 1] is Rainbow))
-                        && ((Matrix[i, j + 1].GetType() == Matrix[i, j].GetType()) || (Matrix[i, j + 1] is Rainbow)))
+                    if (((Matrix[i, j - 1].ObjectType == Matrix[i, j].ObjectType) || (Matrix[i, j - 1] is Rainbow))
+                        && ((Matrix[i, j + 1].ObjectType == Matrix[i, j].ObjectType) || (Matrix[i, j + 1] is Rainbow)))
                     {
                         k = 1;
                         // проверяем ещё соседей справа
-                        while ((j + 1 + k < Size_Columns) && ((Matrix[i, j + 1 + k].GetType() == Matrix[i, j].GetType()) || (Matrix[i, j + 1 + k] is Rainbow)))
+                        while ((j + 1 + k < Size_Columns) && ((Matrix[i, j + 1 + k].ObjectType == Matrix[i, j].ObjectType) || (Matrix[i, j + 1 + k] is Rainbow)))
                             k++;
 
                         Matrix[i, j - 1] = RandElement(); // заменяем найденные одинаковые ячейки (соседей)
@@ -131,12 +131,12 @@ namespace Игра
                     for (int j = 0; j < Size_Columns; j++)
                     {
                         // проверяет соседей сверху и снизу от текущ. ячейки на одинаковость (или на радужный квадрат)
-                        if (((Matrix[i - 1, j].GetType() == Matrix[i, j].GetType()) || (Matrix[i - 1, j] is Rainbow))
-                            && ((Matrix[i + 1, j].GetType() == Matrix[i, j].GetType()) || (Matrix[i + 1, j] is Rainbow)))
+                        if (((Matrix[i - 1, j].ObjectType == Matrix[i, j].ObjectType) || (Matrix[i - 1, j] is Rainbow))
+                            && ((Matrix[i + 1, j].ObjectType == Matrix[i, j].ObjectType) || (Matrix[i + 1, j] is Rainbow)))
                         {
                             // проверяем ещё соседей снизу
                             k = 1;
-                            while ((i + 1 + k < Size_Rows) && ((Matrix[i + 1 + k, j].GetType() == Matrix[i, j].GetType()) || (Matrix[i + 1 + k, j] is Rainbow)))
+                            while ((i + 1 + k < Size_Rows) && ((Matrix[i + 1 + k, j].ObjectType == Matrix[i, j].ObjectType) || (Matrix[i + 1 + k, j] is Rainbow)))
                                 k++;
 
                             Matrix[i - 1, j] = RandElement();  // заменяем найденные одинаковые ячейки (соседей)
@@ -193,7 +193,7 @@ namespace Игра
         public void SecondClick(int FposX, int FposY, int posX, int posY)
         {
             // проверяет корректность второго клика
-            if (((Matrix[posY, posX] is Yellow) || (Matrix[posY, posX] is Red) || (Matrix[posY, posX] is Blue) || (Matrix[posY, posX] is Green))
+            if ((Matrix[posY, posX] is Basic)
                 &&
                 (((Math.Abs(posX - FposX) == 1) && (Math.Abs(posY - FposY) == 0)) || ((Math.Abs(posY - FposY) == 1) && (Math.Abs(posX - FposX) == 0))))
             {
@@ -255,7 +255,7 @@ namespace Игра
             rand++; // увеличиваем счетчик итераций на 1
 
             if (rand <= 10) // пока счетчик итераций < 10
-                op = rnd.Next(4); // генерируем только базовые элементы (0, 1, 2, 3)
+                op = rnd.Next(1); // генерируем только базовые элементы (0, 1, 2, 3)
             else // счетчик достигает 10
             {
                 op = rnd.Next(7); // генерируем любой случайный элемент
@@ -264,10 +264,10 @@ namespace Игра
 
             switch (op)
             {
-                case 0: return new Yellow();
-                case 1: return new Red();
-                case 2: return new Blue();
-                case 3: return new Green();
+                case 0: 
+                case 1: 
+                case 2:
+                case 3: return new Basic(op);
                 case 4: return new Bomb();
                 case 5: return new Rainbow();
                 default: return new Zip();
