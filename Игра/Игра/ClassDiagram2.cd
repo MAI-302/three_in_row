@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Игра.Blue">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAgAAAAAgAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Blue.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Игра.Board">
+    <Position X="0.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAFBIAAAAQAAlgAAAAAAAAABAAhAAAAAAAAAEgAAQA=</HashCode>
+      <FileName>Board.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Игра.Bomb">
+    <Position X="7.25" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAgAAAAAgAAAAAAAAAAAAAAAAEAA=</HashCode>
+      <FileName>Bomb.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Игра.Cell">
+    <Position X="5.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAgAAAAAgAAAAAAAAAAAAAAAAEAA=</HashCode>
+      <FileName>Cell.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Игра.ColourCell">
+    <Position X="10.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAgAAAAAgAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ColourCell.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Игра.Form1">
+    <Position X="2.25" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAEACAAAEgAAICAgAASAAAAAAAgAAQAwAgABAE=</HashCode>
+      <FileName>Form1.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Игра.Green">
+    <Position X="3.5" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAgAAAAAgAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Green.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Игра.Program">
+    <Position X="10.25" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Program.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Игра.Rainbow">
+    <Position X="6.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAgAAAAAgAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Rainbow.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Игра.Red">
+    <Position X="2" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAgAAAAAgAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Red.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Игра.Yellow">
+    <Position X="4.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAgAAAAAgAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Yellow.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Игра.Zip">
+    <Position X="8.75" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAgAAAAAgAAAAAAAAAAAAAAAAEAA=</HashCode>
+      <FileName>Zip.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Игра.Game">
+    <Position X="8.5" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABAAAQAQAQAAAAEAAAAAAAAAAAAAAAACAAAA=</HashCode>
+      <FileName>Game.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
