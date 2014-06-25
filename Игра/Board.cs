@@ -199,7 +199,7 @@ namespace Игра
             {
                 Chain(FposX, FposY, posX, posY); // проверяем возможность образования цепочки в реультате перемены мест 
             }
-            Matrix[FposY, FposX].CreateElement(); // снимаем выделение с ячейки из первого клика
+            Matrix[FposY, FposX].DeselectElement(); // снимаем выделение с ячейки из первого клика
         }
 
         /// <summary>
@@ -217,11 +217,11 @@ namespace Игра
             if (Score == ChScore) // если кол-во очков не изменилось
             {
                 Swap(SposX, SposY, FposX, FposY); // меняем 2 ячейки местами обратно
-                Matrix[FposY, FposX].CreateElement(); // снимаем выделение с первой ячейки
+                Matrix[FposY, FposX].DeselectElement(); // снимаем выделение с первой ячейки
             }
             else // если кол-во очков изменилось, сохраняем перемену мест
             {
-                Matrix[SposY, SposX].CreateElement(); // снимаем выделение со второй ячейки
+                Matrix[SposY, SposX].DeselectElement(); // снимаем выделение со второй ячейки
                 do // производим подсчет очков до тех пор, пока не подсчитаем все
                 {
                     ChScore = Score;
