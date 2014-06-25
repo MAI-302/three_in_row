@@ -21,7 +21,7 @@ namespace Игра
             }
         }
 
-        public override void CreateElement()
+        public override void DeselectElement()
         {
             switch (ObjectType)
             {
