@@ -19,7 +19,7 @@ namespace Игра
         /// <summary>
         /// Создает изображение элемента игрового поля
         /// </summary>
-        public abstract void CreateElement();
+        public abstract void DeselectElement();
 
 
         /// <summary>
