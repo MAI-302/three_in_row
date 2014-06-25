@@ -16,7 +16,7 @@ namespace Игра
         /// <summary>
         /// Создает изображение элемента игрового поля
         /// </summary>
-        public override void CreateElement()
+        public override void DeselectElement()
         { }
 
         /// <summary>
