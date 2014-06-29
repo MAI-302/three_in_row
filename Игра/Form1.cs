@@ -70,8 +70,8 @@ namespace Игра
             {
                 if ((e.X < newBoard.Width) && (e.Y < newBoard.Height)) // защита от кликов вне игрового поля
                 {
-                    posX = (int)(e.X / Cell_Width); // находит номер ячейки матрицы
-                    posY = (int)(e.Y / Cell_Height);
+                    posX = (e.X / Cell_Width); // находит номер ячейки матрицы
+                    posY = (e.Y / Cell_Height);
 
                     if (flag = newBoard.FirstClick(posX, posY)) // проверяем характер первого клика - True - ожидание 2 клика, False - была активация
                     {
@@ -92,8 +92,8 @@ namespace Игра
                 this.Score2.Text = "Второй клик"; // выводим в поле Score2 текст
                 if ((e.X < newBoard.Width) && (e.Y < newBoard.Height)) // защита от клика вне границ игрового поля
                 {
-                    posX = (int)(e.X / Cell_Width); // получает номер столбца и строки ячейки, по которой кликнули
-                    posY = (int)(e.Y / Cell_Height);
+                    posX = (e.X / Cell_Width); // получает номер столбца и строки ячейки, по которой кликнули
+                    posY = (e.Y / Cell_Height);
 
                     newBoard.SecondClick(FposX, FposY, posX, posY);
 
