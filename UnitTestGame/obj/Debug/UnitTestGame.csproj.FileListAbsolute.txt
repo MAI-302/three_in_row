@@ -1,0 +1,7 @@
+C:\Users\acer\Desktop\игра\v3\UnitTestGame\bin\Debug\UnitTestGame.dll
+C:\Users\acer\Desktop\игра\v3\UnitTestGame\bin\Debug\UnitTestGame.pdb
+C:\Users\acer\Desktop\игра\v3\UnitTestGame\bin\Debug\Игра.exe
+C:\Users\acer\Desktop\игра\v3\UnitTestGame\bin\Debug\Игра.pdb
+C:\Users\acer\Desktop\игра\v3\UnitTestGame\obj\Debug\UnitTestGame.csprojResolveAssemblyReference.cache
+C:\Users\acer\Desktop\игра\v3\UnitTestGame\obj\Debug\UnitTestGame.dll
+C:\Users\acer\Desktop\игра\v3\UnitTestGame\obj\Debug\UnitTestGame.pdb

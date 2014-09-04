@@ -54,6 +54,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="BombTest.cs" />
     <Compile Include="BoardTest.cs" />
+    <Compile Include="FirstCliack_Test.cs" />
+    <Compile Include="RandElement_Test.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Игра\Игра.csproj">

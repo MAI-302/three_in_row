@@ -13,20 +13,19 @@ namespace Игра
     abstract public class Cell
     {
         public Image ImgSource; // Хранит изображение объекта
+        public int ObjectType;
 
         public Cell() { }
 
         /// <summary>
         /// Создает изображение элемента игрового поля
         /// </summary>
-        public abstract void DeselectElement();
-
+        public abstract void CreateElement();
 
         /// <summary>
         /// Выделяет изображение элемента игрового поля
         /// </summary>
         public abstract void SelectElement();
-
 
         /// <summary>
         /// Активация

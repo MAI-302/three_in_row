@@ -14,10 +14,8 @@ namespace Игра
     {
         //public Game newGame; // Объект - Игра
         public Board newBoard;
-        int Rows = 10, Columns = 8, 
-            Cell_Width = Properties.Resources.blue.Width, 
-            Cell_Height = Properties.Resources.blue.Height;
-        public bool flag = false; // Флаг состояния кликов (False - не было первого клика, True - был первый клик)
+        int Rows = 10, Columns = 8, Cell_Width = Properties.Resources.blue.Width, Cell_Height = Properties.Resources.blue.Height;
+        public bool clicks_flag = false; // Флаг состояния кликов (False - не было первого клика, True - был первый клик)
         int posX = 0, posY = 0;
         int FposX = 0, FposY = 0; // Координаты клика
 
@@ -36,7 +34,7 @@ namespace Игра
         /// <param name="sender">Объект обращения</param>
         private void Form1_Load(object sender, EventArgs e)
         {
-            newBoard = new Board(Columns, Rows, Columns * Cell_Width, Rows * Cell_Height + this.statusStrip1.Height); // создаем новую игру
+            newBoard = new Board(Rows, Columns, Cell_Width, Cell_Height); // создаем новую игру
             newBoard.Generate();
 
             do // доводим игровое поле до состояния готовности путем обнуления очков на игровом поле
@@ -45,7 +43,7 @@ namespace Игра
                 newBoard.Scoring();
             } while (newBoard.Score != 0);
 
-            this.ClientSize = new System.Drawing.Size(newBoard.Width, newBoard.Height); // корректируем размеры формы
+            this.ClientSize = new System.Drawing.Size(newBoard.Width, newBoard.Height + this.statusStrip1.Height); // корректируем размеры формы
         }
 
         /// <summary>
@@ -66,14 +64,14 @@ namespace Игра
         /// <param name="sender">Объект обращения</param>
         private void Form1_MouseDown(object sender, MouseEventArgs e)
         {
-            if(!flag) // проверяем состояние флага
+            if(!clicks_flag) // проверяем состояние флага
             {
                 if ((e.X < newBoard.Width) && (e.Y < newBoard.Height)) // защита от кликов вне игрового поля
                 {
-                    posX = (e.X / Cell_Width); // находит номер ячейки матрицы
-                    posY = (e.Y / Cell_Height);
+                    posX = e.X / Cell_Width; // находит номер ячейки матрицы
+                    posY = e.Y / Cell_Height;
 
-                    if (flag = newBoard.FirstClick(posX, posY)) // проверяем характер первого клика - True - ожидание 2 клика, False - была активация
+                    if (clicks_flag = newBoard.FirstClick(posX, posY)) // проверяем характер первого клика - True - ожидание 2 клика, False - была активация
                     {
                         FposX = posX; // сохраняем коодинаты первого клика
                         FposY = posY;
@@ -92,14 +90,14 @@ namespace Игра
                 this.Score2.Text = "Второй клик"; // выводим в поле Score2 текст
                 if ((e.X < newBoard.Width) && (e.Y < newBoard.Height)) // защита от клика вне границ игрового поля
                 {
-                    posX = (e.X / Cell_Width); // получает номер столбца и строки ячейки, по которой кликнули
-                    posY = (e.Y / Cell_Height);
+                    posX = e.X / Cell_Width; // получает номер столбца и строки ячейки, по которой кликнули
+                    posY = e.Y / Cell_Height;
 
                     newBoard.SecondClick(FposX, FposY, posX, posY);
 
                     this.Refresh(); // обновляем форму
                 }
-                flag = false; // снимаем флаг (False - не было первого клика)
+                clicks_flag = false; // снимаем флаг (False - не было первого клика)
             }
         }
     }

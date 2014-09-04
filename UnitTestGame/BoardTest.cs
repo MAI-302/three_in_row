@@ -14,7 +14,7 @@ namespace UnitTestGame
             int TestColumns = 2, TestRows = 2;
 
             // act
-            Board TestBoard = new Board(TestColumns, TestRows, 36 * TestColumns, 36 * TestRows);
+            Board TestBoard = new Board(TestRows, TestColumns, 36, 36);
 
             // assert
             Assert.AreEqual(72, TestBoard.Width);

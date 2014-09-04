@@ -12,7 +12,7 @@ namespace UnitTestGame
         {
             // arrange
             int TestColumns = 2, TestRows = 2;
-            Board TestBoard = new Board(TestColumns, TestRows, 36 * TestColumns, 36 * TestRows);
+            Board TestBoard = new Board(TestRows, TestColumns, 36, 36);
             TestBoard.Generate();
             TestBoard.Matrix[0, 0] = new Bomb();
 
