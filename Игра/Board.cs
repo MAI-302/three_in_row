@@ -71,7 +71,7 @@ namespace Игра
             for (int i = 0; i < Rows; i++) // заполняем матрицу объектами класса Cell
                 for (int j = 0; j < Columns; j++)
                 {
-                    Matrix[i, j] = RandElement(ref rand); // ячейке матрицы присваиваем случайный объект класса Cell
+                    Matrix[i, j] = RandElement(); // ячейке матрицы присваиваем случайный объект класса Cell
                 }
         }
 
@@ -109,15 +109,15 @@ namespace Игра
                         while ((j + 1 + k < Columns) && ((Matrix[i, j + 1 + k].ObjectType == Matrix[i, j].ObjectType) || (Matrix[i, j + 1 + k] is Rainbow)))
                             k++;
 
-                        Matrix[i, j - 1] = RandElement(ref rand); // заменяем найденные одинаковые ячейки (соседей)
-                        Matrix[i, j] = RandElement(ref rand);
-                        Matrix[i, j + 1] = RandElement(ref rand);
+                        Matrix[i, j - 1] = RandElement(); // заменяем найденные одинаковые ячейки (соседей)
+                        Matrix[i, j] = RandElement();
+                        Matrix[i, j + 1] = RandElement();
                         rand += 3;
 
                         if (k != 1) // если были найдены доп. соседи справа
                         {
                             for (int l = 1; l < k; l++)
-                                Matrix[i, j + 1 + l] = RandElement(ref rand); // меняем доп. соседи на новые
+                                Matrix[i, j + 1 + l] = RandElement(); // меняем доп. соседи на новые
                         }
 
                         Score++; // увеличиваем счетчик очков на 1
@@ -140,14 +140,14 @@ namespace Игра
                             while ((i + 1 + k < Rows) && ((Matrix[i + 1 + k, j].ObjectType == Matrix[i, j].ObjectType) || (Matrix[i + 1 + k, j] is Rainbow)))
                                 k++;
 
-                            Matrix[i - 1, j] = RandElement(ref rand);  // заменяем найденные одинаковые ячейки (соседей)
-                            Matrix[i, j] = RandElement(ref rand);
-                            Matrix[i + 1, j] = RandElement(ref rand);
+                            Matrix[i - 1, j] = RandElement();  // заменяем найденные одинаковые ячейки (соседей)
+                            Matrix[i, j] = RandElement();
+                            Matrix[i + 1, j] = RandElement();
 
                             if (k != 1) // если были найдены доп. соседи снизу
                             {
                                 for (int l = 1; l < k; l++)
-                                    Matrix[i + 1 + l, j] = RandElement(ref rand); // меняем доп. соседи на новые
+                                    Matrix[i + 1 + l, j] = RandElement(); // меняем доп. соседи на новые
                             }
 
                             Score++; // увеличиваем счетчик очков на 1
@@ -165,19 +165,19 @@ namespace Игра
         public bool FirstClick(int posX, int posY)
         {
             int StScore; // запоминает текущее кол-во очков
-                if (!Matrix[posY, posX].Activation(posX, posY, this)) // проверка на возможность активации при однократном клике
+            if (!Matrix[posY, posX].Activation(posX, posY, this)) // проверка на возможность активации при однократном клике
+            {
+                Matrix[posY, posX].SelectElement(); // выделяем данную ячейку (затемняем)
+                return true;
+            }
+            else
+            {
+                do // подсчитываем очки после активации 
                 {
-                    Matrix[posY, posX].SelectElement(); // выделяем данную ячейку (затемняем)
-                    return true;
-                }
-                else
-                {
-                    do // подсчитываем очки после активации 
-                    {
-                        StScore = Score;
-                        Scoring();
-                    } while (StScore != Score); // до тех пор, пока не останется неподсчитанных очков
-                }
+                    StScore = Score;
+                    Scoring();
+                } while (StScore != Score); // до тех пор, пока не останется неподсчитанных очков
+            }
             return false;
         }
 
@@ -246,30 +246,28 @@ namespace Игра
         /// </summary>
         /// <param name="prand">Увеличивает счетчик итераций генератора случайных чисел на значение prand</param>
         /// <returns>Сгенерированный объект класса Cell (ячейку)</returns>
-        public Cell RandElement(ref int rand)
+        public Cell RandElement()
         {
-            Random rnd = new Random(); // Инициализируем генератор случайных чисел
-            int op;
+            Random rnd = new Random();// Инициализируем генератор случайных чисел
 
-            if (rand < 10) // пока счетчик итераций < 10
+            Random rnd1 = new Random();
+            int CellTypecode = rnd.Next(4);
+            double rand = rnd1.NextDouble();
+            if (rand < 0.6)
             {
-                op = rnd.Next(4); // генерируем только базовые элементы (0, 1, 2, 3)
-                rand++;
+                return new Basic(CellTypecode);
             }
-            else // счетчик достигает 10
+            else if (rand < 0.7)
             {
-                op = rnd.Next(7); // генерируем любой случайный элемент
-                rand = 0;
+                return new Bomb();
             }
-            switch (op)
+            else if (rand < 0.8)
             {
-                case 0: 
-                case 1: 
-                case 2:
-                case 3: return new Basic(op);
-                case 4: return new Bomb();
-                case 5: return new Rainbow();
-                default: return new Zip();
+                return new Rainbow();
+            }
+            else
+            {
+                return new Zip();
             }
         }
     }
